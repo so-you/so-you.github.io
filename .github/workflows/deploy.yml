@@ -34,7 +34,7 @@ jobs:
 
     # 步骤 4：安装 Hexo 及依赖
     - name: Install dependencies
-      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      #if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: |
         npm install -g hexo-cli  # 全局安装 Hexo CLI
         npm install  # 安装项目依赖
