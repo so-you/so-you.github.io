@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+yarn.lock
+node_modules
+Thumbs.db
+db.json
+*.log
+public/
+.deploy*/
+_multiconfig.yml
