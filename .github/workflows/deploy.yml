@@ -10,7 +10,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest  # 使用最新版 Ubuntu 系统
-
+    environment: github-pages  # 指定部署目标环境
     steps:
     # 步骤 1：拉取仓库代码
     - name: Checkout repository
