@@ -1,0 +1,55 @@
+name: Deploy Hexo to GitHub Pages
+
+# 触发条件：当代码推送到主分支（默认 main）时自动运行
+on:
+  push:
+    branches:
+      - main  # 如果主分支是 master，改为 master
+
+# 任务定义
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # 使用最新版 Ubuntu 系统
+
+    steps:
+    # 步骤 1：拉取仓库代码
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true  # 如果使用 Git 子模块（如主题），需启用
+
+    # 步骤 2：安装 Node.js 环境
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20  # 指定 Node.js 版本（与本地一致）
+
+    # 步骤 3：缓存 node_modules 加速后续构建
+    - name: Cache node modules
+      uses: actions/cache@v3
+      id: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+    # 步骤 4：安装 Hexo 及依赖
+    - name: Install dependencies
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      run: |
+        npm install -g hexo-cli  # 全局安装 Hexo CLI
+        npm install  # 安装项目依赖
+
+    # 步骤 5：生成静态文件（public 目录）
+    - name: Generate static files
+      run: |
+        hexo clean  # 清理旧文件
+        hexo g       # 生成静态文件
+
+    # 步骤 6：部署到 GitHub Pages（gh-pages 分支）
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3  # 使用第三方部署 Action
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动注入的 Token，无需手动配置
+        publish_dir: ./public      # 静态文件目录
+        publish_branch: gh-pages   # 目标分支（GitHub Pages 默认分支）
+        commit_message: 'Deploy via GitHub Actions'  # 提交信息
