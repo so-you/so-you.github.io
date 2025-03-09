@@ -54,7 +54,14 @@ jobs:
         publish_branch: gh-pages   # 目标分支（GitHub Pages 默认分支）
         commit_message: 'Deploy via GitHub Actions'  # 提交信息
 
-  # 步骤 7：启动 GitHub Pages 部署
+    # 步骤 7：上传 GitHub Pages artifact
+    - name: Upload GitHub Pages artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: github-pages
+        path: ./public
+
+  # 步骤 8：启动 GitHub Pages 部署
   deploy:
     needs: build
     permissions:
@@ -68,3 +75,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
