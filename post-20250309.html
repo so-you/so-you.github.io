@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>配置 GitHub Action 发布网站</title>
+<meta name="keywords" content="配置 GitHub Action 发布网站, road to success,All in AI,编程开发,读书笔记,英语学习,个人博客">
+<meta name="description" content="从昨天晚上到今天上午，才把这个网站给掰扯明白，更换了主题，并且由原来的git提交静态文件，改成了 Actions Workflow 的方式部署。
+更换主题原来用的 tranquilty 主题，今天换了一个更简洁的主题minimalism
+G">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="配置 GitHub Action 发布网站">
+<meta property="og:description" content="从昨天晚上到今天上午，才把这个网站给掰扯明白，更换了主题，并且由原来的git提交静态文件，改成了 Actions Workflow 的方式部署。
+更换主题原来用的 tranquilty 主题，今天换了一个更简洁的主题minimalism
+G">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://r2suc.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://r2suc.com">
+        <h1 class="site-title">勇者不孤</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archive" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">配置 GitHub Action 发布网站</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2025-03-09</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/blog%EF%BC%8Cgithub/">
+              blog，github
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>从昨天晚上到今天上午，才把这个网站给掰扯明白，更换了主题，并且由原来的git提交静态文件，改成了 Actions Workflow 的方式部署。</p>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>原来用的 tranquilty 主题，今天换了一个更简洁的主题<br><a target="_blank" rel="noopener" href="https://minimalism.codeover.cn/docs/introduction">minimalism</a></p>
+<h3 id="Github-Action-Workflow"><a href="#Github-Action-Workflow" class="headerlink" title="Github Action Workflow"></a>Github Action Workflow</h3><p>我的理解这个东西就是 jekenis 的部署应用。</p>
+<h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><p>期间各种失败，网络问题、yml文件代码错误、文件问题等等，能遇到的全遇到了。</p>
+<ol>
+<li><p>网络问题</p>
+<p>不多说了，墙内网络，提交代码错误，但是很奇怪，通过 vscode 自带的 git 管理工具就可以，这个也算有解决方式。</p>
+</li>
+<li><p>文件安全问题<br><a class="simple-lightbox" target="_blank" rel="noopener" href="https://s2.loli.net/2025/03/09/i3MPKDIrta8CTgO.png"><img   src="/images/loading.svg" data-src="https://s2.loli.net/2025/03/09/i3MPKDIrta8CTgO.png"  alt="20250309012032.png" lazyload></a></p>
+</li>
+</ol>
+<blockquote>
+<p>解决方案 是点击错误信息中的链接，在页面中选择运行即可。</p>
+</blockquote>
+<ol start="3">
+<li>workflow代码配置错误<br>一开始是缺少deploy-pages的步骤，导致发布了十几次，但是访问页面始终无变化，通过 deepseek一步步的问才最终解决。</li>
+</ol>
+<p>然后是报下面这个提示错误，最后才知道，github 默认部署的jekyll应用，需要声明改工程不是 jekyll，通过增加 touch public&#x2F;.nojekyll 才解决。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Artifact could not be deployed. Please ensure the content does not contain any hard links, symlinks and total size is less than 10GB.</span><br></pre></td></tr></table></figure>
+
+<h4 id="workflow文件"><a href="#workflow文件" class="headerlink" title="workflow文件"></a>workflow文件</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"><span class="comment"># 触发条件：当代码推送到主分支（默认 main）时自动运行</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span>  <span class="comment"># 使用最新版 Ubuntu 系统</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 步骤 1：拉取仓库代码</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span>  <span class="comment"># 如果使用 Git 子模块（如主题），需启用</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 步骤 2：安装 Node.js 环境</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">20</span>  <span class="comment"># 指定 Node.js 版本（与本地一致）</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 步骤 3：缓存 node_modules 加速后续构建</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">node</span> <span class="string">modules</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">cache-node-modules</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-node-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 步骤 4：安装 Hexo 及依赖</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm install -g hexo-cli  # 全局安装 Hexo CLI</span></span><br><span class="line"><span class="string">          npm install  # 安装项目依赖</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="comment"># 步骤 5：生成静态文件（public 目录）</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">files</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          hexo clean  # 清理旧文件</span></span><br><span class="line"><span class="string">          hexo generate  # 生成静态文件</span></span><br><span class="line"><span class="string">          touch public/.nojekyll   # 在构建后执行此命令</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="comment"># 步骤 7：部署到 GitHub Pages（gh-pages 分支）</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span>  <span class="comment"># 使用第三方部署 Action</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span>  <span class="comment"># 自动注入的 Token，无需手动配置</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span>  <span class="comment"># 静态文件目录</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">gh-pages</span>  <span class="comment"># 目标分支（GitHub Pages 默认分支）</span></span><br><span class="line">          <span class="attr">commit_message:</span> <span class="string">&#x27;Deploy via GitHub Actions&#x27;</span>  <span class="comment"># 提交信息</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 步骤 8：上传 GitHub Pages artifact</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">GitHub</span> <span class="string">Pages</span> <span class="string">artifact</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-pages-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">./public</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">needs:</span> <span class="string">build</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">      <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">$&#123;&#123;</span> <span class="string">steps.deployment.outputs.page_url</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 步骤 9：启动 GitHub Pages 部署</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">deployment</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/deploy-pages@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">artifact_name:</span> <span class="string">github-pages</span></span><br></pre></td></tr></table></figure>
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="top-box-text">更换主题</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Github-Action-Workflow"><span class="top-box-text">Github Action Workflow</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/weekly-202503-1.html">
+          <h3 class="post-title">
+            下一篇：周记-2503_1：编程可能第一个被 AI 干掉
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/so-you" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a aria-label="跳转至email" href="qiushyfm@gmail.com" target="_blank">
+          <i class="icon icon-email"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+
