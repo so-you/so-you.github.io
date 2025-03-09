@@ -8,9 +8,9 @@ on:
 
 # 任务定义
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest  # 使用最新版 Ubuntu 系统
-    environment: github-pages  # 指定部署目标环境
+    #environment: github-pages  # 指定部署目标环境
     steps:
     # 步骤 1：拉取仓库代码
     - name: Checkout repository
@@ -53,3 +53,18 @@ jobs:
         publish_dir: ./public      # 静态文件目录
         publish_branch: gh-pages   # 目标分支（GitHub Pages 默认分支）
         commit_message: 'Deploy via GitHub Actions'  # 提交信息
+
+  # 步骤 7：启动 GitHub Pages 部署
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
