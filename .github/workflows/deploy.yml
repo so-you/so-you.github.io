@@ -41,6 +41,7 @@ jobs:
         run: |
           hexo clean  # 清理旧文件
           hexo generate  # 生成静态文件
+          touch public/.nojekyll   # 在构建后执行此命令
 
       # 步骤 7：部署到 GitHub Pages（gh-pages 分支）
       - name: Deploy to GitHub Pages
@@ -53,7 +54,7 @@ jobs:
 
       # 步骤 8：上传 GitHub Pages artifact
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: ./public
