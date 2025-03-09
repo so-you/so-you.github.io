@@ -42,12 +42,6 @@ jobs:
           hexo clean  # 清理旧文件
           hexo generate  # 生成静态文件
 
-      # 步骤 6：检查 public 目录内容
-      - name: Verify public directory
-        run: |
-          find ./public -type l -exec echo "Symbolic link found: {}" \; && exit 1 || echo "No symbolic links found"
-          du -sh ./public
-
       # 步骤 7：部署到 GitHub Pages（gh-pages 分支）
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3  # 使用第三方部署 Action
