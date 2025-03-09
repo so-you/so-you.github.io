@@ -22,7 +22,7 @@ menu:
 
 # 深色主题
 dark_theme:
-  enable: true
+  enable: false
   mode: auto # 可选 auto、dark
 
 # 联系方式
