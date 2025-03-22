@@ -1,6 +1,6 @@
 ---
 title: 配置 GitHub Action 发布网站
-tags: [blog，github]
+tags: [blog,github]
 date: 2025-03-09
 permalink: post-20250309.html
 ---
