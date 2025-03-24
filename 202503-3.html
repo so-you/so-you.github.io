@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<meta charset="utf-8" >
+
+<title>MCP 极简入门</title>
+<meta name="keywords" content="MCP 极简入门, road to success,All in AI,编程开发,读书笔记,英语学习,个人博客">
+<meta name="description" content="何为MCPModel Context Protocol MCP 是一种开放协议，它规范了应用程序如何为大型语言模型提供上下文。可以把 MCP 想象成 AI 应用程序的 USB-C 接口。就像 USB-C 为您的设备连接各种外设和配件提供了标">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="MCP 极简入门">
+<meta property="og:description" content="何为MCPModel Context Protocol MCP 是一种开放协议，它规范了应用程序如何为大型语言模型提供上下文。可以把 MCP 想象成 AI 应用程序的 USB-C 接口。就像 USB-C 为您的设备连接各种外设和配件提供了标">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://r2suc.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://r2suc.com">
+        <h1 class="site-title">勇者不孤</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archive" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">MCP 极简入门</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2025-03-24</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B/">
+              编程
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/AI/">
+              AI
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="何为MCP"><a href="#何为MCP" class="headerlink" title="何为MCP"></a>何为MCP</h2><p><em>Model Context Protocol</em> MCP 是一种开放协议，它规范了应用程序如何为大型语言模型提供上下文。可以把 MCP 想象成 AI 应用程序的 USB-C 接口。就像 USB-C 为您的设备连接各种外设和配件提供了标准化方式一样，MCP 也为 AI 模型连接不同的数据源和工具提供了标准化方式。</p>
+<blockquote>
+<p>目前，MCP 被认为是构建更强大 AI Agent 的必经之路。</p>
+</blockquote>
+<h2 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h2><p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://s2.loli.net/2025/03/23/W2NxgyYzRr9uAOV.png"><img   src="/images/loading.svg" data-src="https://s2.loli.net/2025/03/23/W2NxgyYzRr9uAOV.png"  alt="2025-03-23_19-12-25.png" lazyload></a></p>
+<p>这里面最重要的部分是 _MCP Protocol_，但真正需要我们开发（或从第三方仓库下载并安装）的则是 _MCP Server_：一种通过标准化模型上下文协议展示特定功能的轻量级程序。</p>
+<h2 id="开发Server"><a href="#开发Server" class="headerlink" title="开发Server"></a>开发Server</h2><p><strong><em>我们使用 python 语言开发一个本地服务，并将其集成到 VSCode 的 Cline 插件中</em></strong></p>
+<ol>
+<li><p>首先安装 mcp 工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方推荐是用 uv 安装，不过我选择了自己习惯的工具，比如 conda</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要 python3.10 版本及以上</span></span><br><span class="line">pip install mcp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写 server 代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mcp_hello.py</span></span><br><span class="line"><span class="keyword">from</span> mcp.server.fastmcp <span class="keyword">import</span> FastMCP</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个 MCP 服务器</span></span><br><span class="line">mcp = FastMCP(<span class="string">&quot;mcp_hello&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个加法工具</span></span><br><span class="line"><span class="meta">@mcp.tool()</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;将两个数字相加&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个比较工具</span></span><br><span class="line"><span class="meta">@mcp.tool()</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compare</span>(<span class="params">a: <span class="built_in">float</span>, b: <span class="built_in">float</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;比较两个数字的大小&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> a &gt; b:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;a&#125;</span> &gt; <span class="subst">&#123;b&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> a &lt; b:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;a&#125;</span> &lt; <span class="subst">&#123;b&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;a&#125;</span> = <span class="subst">&#123;b&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 设置启动方法，我一开始没有写这部分代码，导致无法启动</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    mcp.run(transport=<span class="string">&#x27;stdio&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 mcp 文件<br>Cline 配置 MCP 服务如图所示：<br><a class="simple-lightbox" target="_blank" rel="noopener" href="https://s2.loli.net/2025/03/24/jVexocJF75pvHkW.png"><img   src="/images/loading.svg" data-src="https://s2.loli.net/2025/03/24/jVexocJF75pvHkW.png"  alt="2025-03-24_22-38-08.png" lazyload></a><br>代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;mcp_hello&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/kyuu/miniconda3/envs/mcpenv/bin/python&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/kyuu/development/mcp_demo/mcp_hello.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;autoApprove&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;add&quot;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>注意：由于我使用的是 Conda 环境，因此 <code>command</code> 指向了我的 Conda Python 路径。</p>
+</li>
+</ol>
+<h2 id="运行mcp"><a href="#运行mcp" class="headerlink" title="运行mcp"></a>运行mcp</h2><p>回到 VSCode 中的 Cline 插件，勾选 <strong>Auto-approve</strong>，选择 <strong>Act</strong> 模式，问出哪个经典的问题：</p>
+<blockquote>
+<p>比较 3.11 和 3.9 的大小？</p>
+</blockquote>
+<p>回答结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数值比较中，3.11 作为十进制数等于3 + 11/100 = 3.11，而3.9等于3 + 90/100 = 3.90。因此3.11 &lt; 3.9</span><br></pre></td></tr></table></figure>
+
+<p>多次尝试无果后，重启 VSCode 并重新测试，最终成功调用 MCP 工具：</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://s2.loli.net/2025/03/24/8njJBTIfKtokWQp.png"><img   src="/images/loading.svg" data-src="https://s2.loli.net/2025/03/24/8njJBTIfKtokWQp.png"  alt="2025-03-24_23-16-03.png" lazyload></a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MCP 很有可能成为扩展 AI 模型能力的标准协议，为 AI 提供了更强大的扩展性。然而，本次我的实验尚未完全成功，仍需进一步研究和调试。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/introduction">官方文档</a></li>
+</ol>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%95%E4%B8%BAMCP"><span class="top-box-text">何为MCP</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="top-box-text">总体结构</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%BC%80%E5%8F%91Server"><span class="top-box-text">开发Server</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%BF%90%E8%A1%8Cmcp"><span class="top-box-text">运行mcp</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%80%BB%E7%BB%93"><span class="top-box-text">总结</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="top-box-text">参考资料</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/weekly-202503-2.html">
+          <h3 class="post-title">
+            下一篇：周记-2025-2：写周记也是很难的一件事
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/so-you" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a aria-label="跳转至email" href="qiushyfm@gmail.com" target="_blank">
+          <i class="icon icon-email"></i>
+        </a>
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+
