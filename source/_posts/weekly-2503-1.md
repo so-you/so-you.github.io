@@ -1,8 +1,8 @@
 ---
-title: 周记-2503-1：编程可能第一个被 AI 干掉
+title: 周记-2025-10：编程可能第一个被 AI 干掉
 tags: [周记,AI]
 date: 2025-03-08
-permalink: weekly-202503-1.html
+permalink: weekly-2025-10.html
 ---
 
 ## 前言<sub>不搭后语</sub>
