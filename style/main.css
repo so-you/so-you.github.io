@@ -659,6 +659,12 @@ nav {
   border-radius: 4px;
   max-width: 740px;
 }
+.post-content p a > img {
+  display: block;
+  margin: 0 auto;
+  max-width: 700px;
+  height: auto;
+}
 .post-content code {
   color: #476582;
   padding: 0.16rem 0.5rem;
